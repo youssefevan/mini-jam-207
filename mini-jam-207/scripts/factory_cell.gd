@@ -11,6 +11,11 @@ var target_angle = 0
 func _physics_process(delta):
 	aim(delta)
 	
+	if health <= 0:
+		$Label.text = ""
+	else:
+		$Label.text = str(health)
+	
 	$Sprite.rotation = lerp_angle($Sprite.rotation, target_angle, 5.0 * delta)
 
 func shoot():

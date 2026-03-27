@@ -17,16 +17,18 @@ radius = 30.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_ecwuj"]
 radius = 420.0
 
+[sub_resource type="LabelSettings" id="LabelSettings_ds1sf"]
+font_size = 32
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
 [node name="Cell" type="CharacterBody2D" unique_id=1714370941]
 collision_layer = 33
-collision_mask = 128
+collision_mask = 130
 script = ExtResource("1_0s7o3")
-max_speed = null
-max_health = null
-firerate = null
+bullet_speed = 500.0
 target_color = Color(0.5697043, 0.99999994, 0.57538545, 1)
 bullet_color = Color(0.29000002, 0.8579998, 1, 1)
-hurt_color = null
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=531445777]
 rect = Rect2(-64, -64, 128, 128)
@@ -69,6 +71,16 @@ collision_mask = 16
 [node name="Collider" type="CollisionShape2D" parent="AttackRange" unique_id=1539576030]
 shape = SubResource("CircleShape2D_ecwuj")
 debug_color = Color(1, 1, 1, 0.1254902)
+
+[node name="Label" type="Label" parent="." unique_id=58780809]
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
+text = "5"
+label_settings = SubResource("LabelSettings_ds1sf")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="Seperator" to="." method="_on_seperator_body_entered"]
 [connection signal="body_exited" from="Seperator" to="." method="_on_seperator_body_exited"]

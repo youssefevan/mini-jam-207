@@ -18,11 +18,9 @@ radius = 48.0
 script = ExtResource("2_aawc0")
 max_speed = 50.0
 max_health = 12
-firerate = 1.0
-bullet_speed = 500.0
+bullet_speed = 800.0
 target_color = Color(0.3016783, 0.99999994, 0.94571763, 1)
 bullet_color = Color(1, 0.94933337, 0.24000001, 1)
-hurt_color = Color(1, 1, 1, 1)
 
 [node name="Sprite" parent="." index="1" unique_id=20248440]
 texture = ExtResource("2_re8fb")

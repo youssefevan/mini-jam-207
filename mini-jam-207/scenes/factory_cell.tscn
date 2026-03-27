@@ -17,7 +17,6 @@ radius = 108.0
 script = ExtResource("2_kv64k")
 max_speed = 50.0
 max_health = 25
-firerate = 1.0
 target_color = Color(1, 1, 1, 1)
 hurt_color = Color(1, 0.6, 0.6, 1)
 

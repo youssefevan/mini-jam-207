@@ -39,6 +39,11 @@ func _process(delta):
 		$Sprite.modulate = lerp($Sprite.modulate, target_color, 1.0 * delta)
 
 func _physics_process(delta):
+	if health <= 0:
+		$Label.text = ""
+	else:
+		$Label.text = str(health)
+	
 	if target:
 		if global_position.distance_squared_to(target.global_position) > 200.0:
 			move_dir = global_position.direction_to(target.global_position)
@@ -85,6 +90,7 @@ func aim(delta):
 				closest = i
 	
 		target_enemy = closest
+		
 		var dist = global_position.distance_to(target_enemy.global_position)
 		var lead_position = target_enemy.global_position + target_enemy.velocity * (dist / bullet_speed)
 		var target_dir = global_position.direction_to(lead_position).angle()
