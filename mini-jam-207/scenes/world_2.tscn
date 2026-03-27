@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://l6ehacs8shoa"]
+
+[ext_resource type="Script" uid="uid://cof1c7u67pdxr" path="res://scripts/world.gd" id="1_tjjxi"]
+[ext_resource type="PackedScene" uid="uid://e5povbhdp8ip" path="res://scenes/player.tscn" id="2_kiokp"]
+[ext_resource type="PackedScene" uid="uid://dmn0llqtujcyh" path="res://scenes/cell.tscn" id="3_2diqr"]
+[ext_resource type="PackedScene" uid="uid://d0wvgadwnxckt" path="res://scenes/tank_cell.tscn" id="4_axyqp"]
+
+[node name="World" type="Node2D" unique_id=1124814247 node_paths=PackedStringArray("player")]
+script = ExtResource("1_tjjxi")
+player = NodePath("Player")
+
+[node name="Player" parent="." unique_id=866109224 instance=ExtResource("2_kiokp")]
+
+[node name="Camera" parent="Player" index="0" unique_id=1882539580]
+enabled = false
+
+[node name="Cell" parent="Player" unique_id=1714370941 instance=ExtResource("3_2diqr")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=668883817]
+zoom = Vector2(0.4, 0.4)
+
+[node name="Cluster1" type="Node2D" parent="." unique_id=576846309]
+
+[node name="Cell4" parent="Cluster1" unique_id=1980668606 instance=ExtResource("3_2diqr")]
+position = Vector2(-1336, -632)
+
+[node name="Cell5" parent="Cluster1" unique_id=1791511842 instance=ExtResource("3_2diqr")]
+position = Vector2(-1232, -600)
+
+[node name="Cell6" parent="Cluster1" unique_id=1956816985 instance=ExtResource("3_2diqr")]
+position = Vector2(-1248, -688)
+
+[node name="Cell7" parent="Cluster1" unique_id=190948760 instance=ExtResource("3_2diqr")]
+position = Vector2(-1144, -688)
+
+[node name="Cell8" parent="Cluster1" unique_id=605398499 instance=ExtResource("3_2diqr")]
+position = Vector2(-1336, -712)
+
+[node name="TankCell" parent="Cluster1" unique_id=494447338 instance=ExtResource("4_axyqp")]
+position = Vector2(-1016, -552)
+
+[editable path="Player"]

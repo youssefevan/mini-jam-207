@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://03jjdnxklhxb" path="res://scenes/hurtbox.tscn" id="4_ds1sf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0s7o3"]
-radius = 28.0
+radius = 30.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_upbjj"]
 radius = 32.0
@@ -23,6 +23,9 @@ collision_mask = 128
 script = ExtResource("1_0s7o3")
 target_color = Color(0.5697043, 0.99999994, 0.57538545, 1)
 bullet_color = Color(0.29000002, 0.8579998, 1, 1)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=531445777]
+rect = Rect2(-64, -64, 128, 128)
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=20248440]
 texture = ExtResource("1_upbjj")

@@ -63,7 +63,4 @@ visible = true
 [node name="Collider" parent="Hurtbox" index="0" unique_id=1588830444]
 shape = SubResource("CircleShape2D_aawc0")
 
-[node name="AttackRange" parent="." index="5" unique_id=1308475013]
-visible = false
-
 [editable path="Hurtbox"]

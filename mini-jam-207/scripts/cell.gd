@@ -7,7 +7,7 @@ var target
 
 @export var max_speed := 100.0
 var move_dir := Vector2.ZERO
-var friction := 1.0
+var friction := 3.0
 var aim_speed := 10.0
 var seperation_strength := 500.0
 var health
