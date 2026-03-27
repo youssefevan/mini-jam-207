@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://d0wvgadwnxckt"]
+
+[ext_resource type="PackedScene" uid="uid://dmn0llqtujcyh" path="res://scenes/cell.tscn" id="1_1utf0"]
+[ext_resource type="Script" uid="uid://cx7mk6dxsdyn5" path="res://scripts/tank_cell.gd" id="2_aawc0"]
+[ext_resource type="Texture2D" uid="uid://b8qw33ked8f7m" path="res://sprites/tank.png" id="2_re8fb"]
+[ext_resource type="Texture2D" uid="uid://dqaxsuq6egsvo" path="res://sprites/gun.png" id="3_1bki7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1bki7"]
+radius = 48.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_re8fb"]
+radius = 56.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aawc0"]
+radius = 48.0
+
+[node name="TankCell" unique_id=1714370941 instance=ExtResource("1_1utf0")]
+script = ExtResource("2_aawc0")
+max_speed = 100.0
+max_health = 12
+firerate = 0.5
+target_color = Color(0.3016783, 0.99999994, 0.94571763, 1)
+bullet_color = Color(0.8323595, 0.807838, 0, 1)
+
+[node name="Sprite" parent="." index="0" unique_id=20248440]
+texture = ExtResource("2_re8fb")
+
+[node name="Collider" parent="." index="1" unique_id=1927517454]
+shape = SubResource("CircleShape2D_1bki7")
+
+[node name="Seperator" parent="." index="2" unique_id=1349776888]
+visible = true
+
+[node name="Collider" parent="Seperator" index="0" unique_id=74583118]
+shape = SubResource("CircleShape2D_re8fb")
+
+[node name="Muzzle" parent="Gun" parent_id_path=PackedInt32Array(989617200) index="0" unique_id=78768750]
+position = Vector2(75, 0)
+
+[node name="Sprite" parent="Gun" parent_id_path=PackedInt32Array(989617200) index="1" unique_id=997465045]
+position = Vector2(63, 0)
+
+[node name="Muzzle1" type="Node2D" parent="Gun" parent_id_path=PackedInt32Array(989617200) index="2" unique_id=234954990]
+position = Vector2(68, 32)
+
+[node name="Sprite1" type="Sprite2D" parent="Gun" parent_id_path=PackedInt32Array(989617200) index="3" unique_id=1609947568]
+z_index = -1
+position = Vector2(48, 32)
+rotation = -1.5707964
+texture = ExtResource("3_1bki7")
+
+[node name="Muzzle2" type="Node2D" parent="Gun" parent_id_path=PackedInt32Array(989617200) index="4" unique_id=125368863]
+position = Vector2(68, -32)
+
+[node name="Sprite2" type="Sprite2D" parent="Gun" parent_id_path=PackedInt32Array(989617200) index="5" unique_id=1531680735]
+z_index = -1
+position = Vector2(48, -32)
+rotation = -1.5707964
+texture = ExtResource("3_1bki7")
+
+[node name="Hurtbox" parent="." index="4" unique_id=1744992855]
+visible = true
+
+[node name="Collider" parent="Hurtbox" index="0" unique_id=1588830444]
+shape = SubResource("CircleShape2D_aawc0")
+
+[node name="AttackRange" parent="." index="5" unique_id=1308475013]
+visible = false
+
+[editable path="Hurtbox"]

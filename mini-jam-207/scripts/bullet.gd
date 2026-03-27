@@ -1,7 +1,7 @@
 extends Area2D
 class_name Bullet
 
-var speed = 250.0
+@export var speed = 250.0
 var dir = Vector2.RIGHT
 
 var target_color = Color.WHITE

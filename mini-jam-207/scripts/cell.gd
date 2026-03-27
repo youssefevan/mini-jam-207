@@ -5,15 +5,15 @@ class_name Cell
 
 var target
 
-var max_speed := 300.0
+@export var max_speed := 300.0
 var move_dir := Vector2.ZERO
 var friction := 1.0
 var aim_speed := 5.0
 var seperation_strength := 500.0
 var health
-var max_health := 5
+@export var max_health := 5
 
-var firerate := 1.0
+@export var firerate := 1.0
 var can_shoot := true
 
 @export var target_color : Color
@@ -45,6 +45,18 @@ func _physics_process(delta):
 	aim(delta)
 	
 	move_and_slide()
+
+func get_seperation_force():
+	var force = Vector2.ZERO
+	
+	for i in neighbors:
+		var offset = global_position - i.global_position
+		var distance = offset.length()
+		
+		if distance > 0:
+			force += offset.normalized() / distance
+	
+	return force * seperation_strength
 
 func aim(delta):
 	var closest
@@ -82,19 +94,6 @@ func shoot():
 		
 		can_shoot = true
 
-func get_seperation_force():
-	var force = Vector2.ZERO
-	
-	for i in neighbors:
-		var offset = global_position - i.global_position
-		var distance = offset.length()
-		
-		if distance > 0:
-			distance = max(distance, 10.0)
-			force += offset.normalized() / distance
-	
-	return force * seperation_strength
-
 func swap_sides(follow_node, col : Color, b_col: Color):
 	enemies_in_range = []
 	
@@ -127,7 +126,7 @@ func _on_hurtbox_area_entered(area):
 				
 				# prevents visually teleporting on reparent
 				physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
-				call_deferred("reparent", get_parent().player)
+				call_deferred("reparent", get_tree().get_root().get_node("World").player)
 				await get_tree().create_timer(0.02).timeout
 				physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_INHERIT
 				

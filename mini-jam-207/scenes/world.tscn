@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://e5povbhdp8ip" path="res://scenes/player.tscn" id="1_nnsk1"]
 [ext_resource type="PackedScene" uid="uid://dmn0llqtujcyh" path="res://scenes/cell.tscn" id="2_rwgxs"]
 [ext_resource type="Texture2D" uid="uid://dqaxsuq6egsvo" path="res://sprites/gun.png" id="4_k0juu"]
+[ext_resource type="PackedScene" uid="uid://d0wvgadwnxckt" path="res://scenes/tank_cell.tscn" id="6_qfnet"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_71j4m"]
 normal = Vector2(0, 1)
@@ -232,20 +233,25 @@ shape = SubResource("RectangleShape2D_71j4m")
 
 [node name="Cell" parent="Player" unique_id=1714370941 instance=ExtResource("2_rwgxs")]
 
-[node name="Cell4" parent="." unique_id=469030209 instance=ExtResource("2_rwgxs")]
+[node name="Cluster1" type="Node2D" parent="." unique_id=1878460076]
+
+[node name="Cell4" parent="Cluster1" unique_id=469030209 instance=ExtResource("2_rwgxs")]
 position = Vector2(-1336, -632)
 
-[node name="Cell5" parent="." unique_id=2078709831 instance=ExtResource("2_rwgxs")]
+[node name="Cell5" parent="Cluster1" unique_id=2078709831 instance=ExtResource("2_rwgxs")]
 position = Vector2(-1232, -600)
 
-[node name="Cell6" parent="." unique_id=976473585 instance=ExtResource("2_rwgxs")]
+[node name="Cell6" parent="Cluster1" unique_id=976473585 instance=ExtResource("2_rwgxs")]
 position = Vector2(-1248, -688)
 
-[node name="Cell7" parent="." unique_id=2089391298 instance=ExtResource("2_rwgxs")]
+[node name="Cell7" parent="Cluster1" unique_id=2089391298 instance=ExtResource("2_rwgxs")]
 position = Vector2(-1144, -688)
 
-[node name="Cell8" parent="." unique_id=2017526737 instance=ExtResource("2_rwgxs")]
+[node name="Cell8" parent="Cluster1" unique_id=2017526737 instance=ExtResource("2_rwgxs")]
 position = Vector2(-1336, -712)
+
+[node name="TankCell" parent="Cluster1" unique_id=1042096004 instance=ExtResource("6_qfnet")]
+position = Vector2(-1016, -552)
 
 [node name="Cell15" parent="." unique_id=1988687252 instance=ExtResource("2_rwgxs")]
 position = Vector2(592, 264)
