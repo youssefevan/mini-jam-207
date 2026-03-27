@@ -253,35 +253,43 @@ position = Vector2(-1336, -712)
 [node name="TankCell" parent="Cluster1" unique_id=1042096004 instance=ExtResource("6_qfnet")]
 position = Vector2(-1016, -552)
 
-[node name="Cell15" parent="." unique_id=1988687252 instance=ExtResource("2_rwgxs")]
-position = Vector2(592, 264)
+[node name="Cluster2" type="Node2D" parent="." unique_id=395715359]
+position = Vector2(1192, 632)
 
-[node name="Cell16" parent="." unique_id=522073566 instance=ExtResource("2_rwgxs")]
-position = Vector2(696, 296)
+[node name="Cell15" parent="Cluster2" unique_id=1988687252 instance=ExtResource("2_rwgxs")]
+position = Vector2(16, -88)
 
-[node name="Cell17" parent="." unique_id=28814364 instance=ExtResource("2_rwgxs")]
-position = Vector2(680, 208)
+[node name="Cell16" parent="Cluster2" unique_id=522073566 instance=ExtResource("2_rwgxs")]
+position = Vector2(-96, 24)
 
-[node name="Cell18" parent="." unique_id=210327393 instance=ExtResource("2_rwgxs")]
-position = Vector2(784, 208)
+[node name="Cell17" parent="Cluster2" unique_id=28814364 instance=ExtResource("2_rwgxs")]
+position = Vector2(96, -24)
 
-[node name="Cell19" parent="." unique_id=594096623 instance=ExtResource("2_rwgxs")]
-position = Vector2(592, 184)
+[node name="Cell18" parent="Cluster2" unique_id=210327393 instance=ExtResource("2_rwgxs")]
+position = Vector2(-64, -40)
 
-[node name="Cell20" parent="." unique_id=243383195 instance=ExtResource("2_rwgxs")]
+[node name="Cell19" parent="Cluster2" unique_id=594096623 instance=ExtResource("2_rwgxs")]
+position = Vector2(24, 64)
+
+[node name="TankCell" parent="Cluster2" unique_id=693745146 instance=ExtResource("6_qfnet")]
+position = Vector2(104, 136)
+
+[node name="Cluster3" type="Node2D" parent="." unique_id=1485475595]
 position = Vector2(-8, -696)
 
-[node name="Cell21" parent="." unique_id=1931876489 instance=ExtResource("2_rwgxs")]
-position = Vector2(96, -664)
+[node name="Cell20" parent="Cluster3" unique_id=243383195 instance=ExtResource("2_rwgxs")]
 
-[node name="Cell22" parent="." unique_id=726386201 instance=ExtResource("2_rwgxs")]
-position = Vector2(80, -752)
+[node name="Cell21" parent="Cluster3" unique_id=1931876489 instance=ExtResource("2_rwgxs")]
+position = Vector2(104, 32)
 
-[node name="Cell23" parent="." unique_id=982572970 instance=ExtResource("2_rwgxs")]
-position = Vector2(184, -752)
+[node name="Cell22" parent="Cluster3" unique_id=726386201 instance=ExtResource("2_rwgxs")]
+position = Vector2(88, -56)
 
-[node name="Cell24" parent="." unique_id=2121266879 instance=ExtResource("2_rwgxs")]
-position = Vector2(-8, -776)
+[node name="Cell23" parent="Cluster3" unique_id=982572970 instance=ExtResource("2_rwgxs")]
+position = Vector2(192, -56)
+
+[node name="Cell24" parent="Cluster3" unique_id=2121266879 instance=ExtResource("2_rwgxs")]
+position = Vector2(0, -80)
 
 [node name="Cell9" parent="." unique_id=830882913 instance=ExtResource("2_rwgxs")]
 position = Vector2(1152, -600)

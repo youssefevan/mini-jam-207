@@ -99,9 +99,6 @@ func shoot():
 	if can_shoot and !swapping:
 		can_shoot = false
 		
-		# wait first to allow cell to adjust aim
-		await get_tree().create_timer(firerate).timeout
-		
 		var b = bullet.instantiate()
 		b.global_position = $Gun/Muzzle.global_position
 		b.rotation = $Gun.rotation
@@ -109,6 +106,7 @@ func shoot():
 		b.target_color = bullet_color
 		get_tree().get_root().add_child(b)
 		
+		await get_tree().create_timer(firerate).timeout
 		can_shoot = true
 
 func swap_sides(follow_node, col : Color, b_col: Color):

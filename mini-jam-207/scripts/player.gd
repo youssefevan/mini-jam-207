@@ -22,7 +22,6 @@ func cell_setup():
 	for i in get_children():
 		if i is Cell:
 			cell_count += 1
-			i.swap_sides(self, cell_color, bullet_color)
 	
 	if cell_count < 10:
 		target_zoom = 0.7
@@ -46,6 +45,7 @@ func _physics_process(delta):
 
 func _on_child_entered_tree(node):
 	if node is Cell:
+		node.swap_sides(self, cell_color, bullet_color)
 		cell_setup()
 
 func _on_child_exiting_tree(node):
