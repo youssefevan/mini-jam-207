@@ -5,10 +5,10 @@ class_name Cell
 
 var target
 
-@export var max_speed := 300.0
+@export var max_speed := 100.0
 var move_dir := Vector2.ZERO
 var friction := 1.0
-var aim_speed := 5.0
+var aim_speed := 10.0
 var seperation_strength := 500.0
 var health
 @export var max_health := 5
@@ -23,10 +23,14 @@ var bullet_group := "enemy"
 
 var neighbors = []
 var enemies_in_range = []
+var target_enemy
 
 var swapping := false
 
+var starting_pos : Vector2
+
 func _ready():
+	starting_pos = global_position
 	health = max_health
 
 func _process(delta):
@@ -34,11 +38,24 @@ func _process(delta):
 		$Sprite.modulate = lerp($Sprite.modulate, target_color, 1.0 * delta)
 
 func _physics_process(delta):
-	if target and global_position.distance_squared_to(target.global_position) > 200.0:
-		move_dir = global_position.direction_to(target.global_position)
-		velocity = lerp(velocity, move_dir * max_speed, friction * delta)
+	if target:
+		if global_position.distance_squared_to(target.global_position) > 200.0:
+			move_dir = global_position.direction_to(target.global_position)
+			velocity = lerp(velocity, move_dir * max_speed, friction * delta)
+		else:
+			velocity = lerp(velocity, Vector2.ZERO, friction * delta)
+	elif target_enemy:
+		if global_position.distance_squared_to(target_enemy.global_position) > 1000.0:
+			move_dir = global_position.direction_to(target_enemy.global_position)
+			velocity = lerp(velocity, move_dir * max_speed, friction * delta)
+		else:
+			velocity = lerp(velocity, Vector2.ZERO, friction * delta)
 	else:
-		velocity = lerp(velocity, Vector2.ZERO, friction * delta)
+		if global_position.distance_squared_to(starting_pos) > 1000.0:
+			move_dir = global_position.direction_to(starting_pos)
+			velocity = lerp(velocity, move_dir * max_speed, friction * delta)
+		else:
+			velocity = lerp(velocity, Vector2.ZERO, friction * delta)
 	
 	velocity += get_seperation_force()
 	
@@ -61,19 +78,19 @@ func get_seperation_force():
 func aim(delta):
 	var closest
 	if not enemies_in_range.is_empty():
+		closest = enemies_in_range[0]
 		for i in enemies_in_range:
-			if closest == null:
-				closest = i
-			elif global_position.distance_squared_to(i.global_position) < global_position.distance_squared_to(closest.global_position):
+			if global_position.distance_squared_to(i.global_position) < global_position.distance_squared_to(closest.global_position):
 				closest = i
 	
-	if closest:
+		target_enemy = closest
 		var target_dir = global_position.direction_to(closest.global_position).angle()
 		$Gun.rotation = lerp_angle($Gun.rotation, target_dir, aim_speed * delta)
 		
 		shoot()
 		
 	else:
+		target_enemy = null
 		if target:
 			var target_dir = global_position.direction_to(get_global_mouse_position()).angle()
 			$Gun.rotation = lerp_angle($Gun.rotation, target_dir, aim_speed * delta)
