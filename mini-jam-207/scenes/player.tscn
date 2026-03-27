@@ -5,9 +5,11 @@
 [node name="Player" type="Node2D" unique_id=866109224]
 script = ExtResource("1_g2els")
 cell_color = Color(1, 0.25, 0.2624998, 1)
+bullet_color = Color(1, 0.658, 0.24000001, 1)
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1882539580]
 zoom = Vector2(0.7, 0.7)
 position_smoothing_enabled = true
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
