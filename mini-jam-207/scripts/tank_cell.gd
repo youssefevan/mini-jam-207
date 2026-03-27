@@ -11,6 +11,7 @@ func shoot():
 		var b = bullet.instantiate()
 		b.global_position = $Gun/Muzzle.global_position
 		b.rotation = $Gun.rotation
+		b.speed = bullet_speed
 		b.add_to_group(bullet_group)
 		b.target_color = bullet_color
 		get_tree().get_root().add_child(b)
@@ -18,6 +19,7 @@ func shoot():
 		var b1 = bullet.instantiate()
 		b1.global_position = $Gun/Muzzle1.global_position
 		b1.rotation = $Gun.rotation
+		b1.speed = bullet_speed
 		b1.add_to_group(bullet_group)
 		b1.target_color = bullet_color
 		get_tree().get_root().add_child(b1)
@@ -25,6 +27,7 @@ func shoot():
 		var b2 = bullet.instantiate()
 		b2.global_position = $Gun/Muzzle2.global_position
 		b2.rotation = $Gun.rotation
+		b2.speed = bullet_speed
 		b2.add_to_group(bullet_group)
 		b2.target_color = bullet_color
 		get_tree().get_root().add_child(b2)

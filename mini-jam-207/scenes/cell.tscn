@@ -21,8 +21,12 @@ radius = 420.0
 collision_layer = 33
 collision_mask = 128
 script = ExtResource("1_0s7o3")
+max_speed = null
+max_health = null
+firerate = null
 target_color = Color(0.5697043, 0.99999994, 0.57538545, 1)
 bullet_color = Color(0.29000002, 0.8579998, 1, 1)
+hurt_color = null
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=531445777]
 rect = Rect2(-64, -64, 128, 128)

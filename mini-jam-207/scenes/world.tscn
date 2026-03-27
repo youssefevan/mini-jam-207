@@ -2,9 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://d1bm62pqondht" path="res://sprites/bg.png" id="1_4wyf3"]
 [ext_resource type="Script" uid="uid://cof1c7u67pdxr" path="res://scripts/world.gd" id="1_71j4m"]
-[ext_resource type="PackedScene" uid="uid://e5povbhdp8ip" path="res://scenes/player.tscn" id="1_nnsk1"]
+[ext_resource type="Texture2D" uid="uid://2rfemio4cwxk" path="res://sprites/player.png" id="1_nnsk1"]
 [ext_resource type="PackedScene" uid="uid://dmn0llqtujcyh" path="res://scenes/cell.tscn" id="2_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://dufj2boybrucc" path="res://scenes/wall.tscn" id="3_4mrxx"]
+[ext_resource type="Script" uid="uid://c2ii5lmp6ouaq" path="res://scripts/minimap.gd" id="3_w7kh3"]
+[ext_resource type="PackedScene" uid="uid://e5povbhdp8ip" path="res://scenes/player.tscn" id="5_7r4gi"]
 [ext_resource type="PackedScene" uid="uid://d0wvgadwnxckt" path="res://scenes/tank_cell.tscn" id="6_qfnet"]
 [ext_resource type="PackedScene" uid="uid://uvvu0gmvyhym" path="res://scenes/factory_cell.tscn" id="7_i7141"]
 [ext_resource type="Texture2D" uid="uid://d0fxt6snlx2ay" path="res://sprites/brain.png" id="8_4mrxx"]
@@ -30,6 +32,27 @@ sources/0 = SubResource("TileSetScenesCollectionSource_7r4gi")
 [node name="World" type="Node2D" unique_id=340078211 node_paths=PackedStringArray("player")]
 script = ExtResource("1_71j4m")
 player = NodePath("Player")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1480555995]
+
+[node name="TextureRect" type="ColorRect" parent="CanvasLayer" unique_id=1551073968]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -232.0
+offset_top = -232.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+color = Color(1, 1, 1, 0.5254902)
+
+[node name="Sprite" type="Sprite2D" parent="CanvasLayer/TextureRect" unique_id=522331850]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_nnsk1")
+script = ExtResource("3_w7kh3")
 
 [node name="WorldBounday" type="Node2D" parent="." unique_id=1412388115]
 metadata/_edit_lock_ = true
@@ -81,28 +104,52 @@ texture = ExtResource("1_4wyf3")
 tile_map_data = PackedByteArray("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")
 tile_set = SubResource("TileSet_w7kh3")
 
-[node name="Player" parent="." unique_id=475168457 instance=ExtResource("1_nnsk1")]
-position = Vector2(0, 3584)
+[node name="Player" parent="." unique_id=475168457 instance=ExtResource("5_7r4gi")]
+position = Vector2(648, 2032)
 metadata/_edit_group_ = true
 
 [node name="Cell" parent="Player" unique_id=1714370941 instance=ExtResource("2_rwgxs")]
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Cluster1" type="Node2D" parent="." unique_id=1878460076]
 
 [node name="Cell4" parent="Cluster1" unique_id=469030209 instance=ExtResource("2_rwgxs")]
 position = Vector2(-1336, -632)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Cell5" parent="Cluster1" unique_id=2078709831 instance=ExtResource("2_rwgxs")]
 position = Vector2(-1232, -600)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Cell6" parent="Cluster1" unique_id=976473585 instance=ExtResource("2_rwgxs")]
 position = Vector2(-1248, -688)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Cell7" parent="Cluster1" unique_id=2089391298 instance=ExtResource("2_rwgxs")]
 position = Vector2(-1144, -688)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Cell8" parent="Cluster1" unique_id=2017526737 instance=ExtResource("2_rwgxs")]
 position = Vector2(-1336, -712)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="TankCell" parent="Cluster1" unique_id=1042096004 instance=ExtResource("6_qfnet")]
 position = Vector2(-1016, -552)
@@ -112,18 +159,38 @@ position = Vector2(1448, 1856)
 
 [node name="Cell15" parent="Cluster2" unique_id=1988687252 instance=ExtResource("2_rwgxs")]
 position = Vector2(16, -88)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Cell16" parent="Cluster2" unique_id=522073566 instance=ExtResource("2_rwgxs")]
 position = Vector2(-96, 24)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Cell17" parent="Cluster2" unique_id=28814364 instance=ExtResource("2_rwgxs")]
 position = Vector2(96, -24)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Cell18" parent="Cluster2" unique_id=210327393 instance=ExtResource("2_rwgxs")]
 position = Vector2(-64, -40)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Cell19" parent="Cluster2" unique_id=594096623 instance=ExtResource("2_rwgxs")]
 position = Vector2(24, 64)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="TankCell" parent="Cluster2" unique_id=693745146 instance=ExtResource("6_qfnet")]
 position = Vector2(104, 136)
@@ -132,39 +199,83 @@ position = Vector2(104, 136)
 position = Vector2(-8, -696)
 
 [node name="Cell20" parent="Cluster3" unique_id=243383195 instance=ExtResource("2_rwgxs")]
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Cell21" parent="Cluster3" unique_id=1931876489 instance=ExtResource("2_rwgxs")]
 position = Vector2(104, 32)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Cell22" parent="Cluster3" unique_id=726386201 instance=ExtResource("2_rwgxs")]
 position = Vector2(88, -56)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Cell23" parent="Cluster3" unique_id=982572970 instance=ExtResource("2_rwgxs")]
 position = Vector2(192, -56)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Cell24" parent="Cluster3" unique_id=2121266879 instance=ExtResource("2_rwgxs")]
 position = Vector2(0, -80)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="FactoryCell" parent="Cluster3" unique_id=48191077 instance=ExtResource("7_i7141")]
 position = Vector2(1800, 2512)
 
 [node name="Cell9" parent="." unique_id=830882913 instance=ExtResource("2_rwgxs")]
 position = Vector2(1152, -600)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Cell10" parent="." unique_id=1933458291 instance=ExtResource("2_rwgxs")]
 position = Vector2(1440, -144)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Cell11" parent="." unique_id=2091000495 instance=ExtResource("2_rwgxs")]
 position = Vector2(424, 880)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Cell12" parent="." unique_id=111452038 instance=ExtResource("2_rwgxs")]
 position = Vector2(-768, 1040)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Cell13" parent="." unique_id=1100935974 instance=ExtResource("2_rwgxs")]
 position = Vector2(-1376, 496)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Cell14" parent="." unique_id=904348280 instance=ExtResource("2_rwgxs")]
 position = Vector2(-696, 1104)
+max_speed = 100.0
+max_health = 5
+firerate = 1.0
+hurt_color = Color(1, 1, 1, 1)
 
 [node name="Brain" type="Sprite2D" parent="." unique_id=49932802]
 texture = ExtResource("8_4mrxx")

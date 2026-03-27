@@ -14,6 +14,7 @@ var health
 @export var max_health := 5
 
 @export var firerate := 1.0
+@export var bullet_speed := 250.0
 var can_shoot := true
 
 @export var target_color : Color
@@ -84,7 +85,9 @@ func aim(delta):
 				closest = i
 	
 		target_enemy = closest
-		var target_dir = global_position.direction_to(closest.global_position).angle()
+		var dist = global_position.distance_to(target_enemy.global_position)
+		var lead_position = target_enemy.global_position + target_enemy.velocity * (dist / bullet_speed)
+		var target_dir = global_position.direction_to(lead_position).angle()
 		$Gun.rotation = lerp_angle($Gun.rotation, target_dir, aim_speed * delta)
 		
 		shoot()
@@ -102,6 +105,7 @@ func shoot():
 		var b = bullet.instantiate()
 		b.global_position = $Gun/Muzzle.global_position
 		b.rotation = $Gun.rotation
+		b.speed = bullet_speed
 		b.add_to_group(bullet_group)
 		b.target_color = bullet_color
 		get_tree().get_root().add_child(b)
@@ -124,6 +128,22 @@ func swap_sides(follow_node, col : Color, b_col: Color):
 	$Hurtbox.remove_from_group("enemy")
 	$Hurtbox.add_to_group("player")
 
+func handle_swap():
+	swapping = true
+	
+	# prevents visually teleporting on reparent
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
+	call_deferred("reparent", get_tree().get_root().get_node("World").player)
+	await get_tree().create_timer(0.02).timeout
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_INHERIT
+	
+	await get_tree().create_timer(2.0).timeout
+	swapping = false
+	health = int(max_health/2)
+
+func die():
+	call_deferred("free")
+
 func _on_seperator_body_entered(body):
 	neighbors.append(body)
 
@@ -136,22 +156,10 @@ func _on_hurtbox_area_entered(area):
 		
 		if health <= 0:
 			if area.is_in_group("player"):
-				
-				swapping = true
-				
-				# prevents visually teleporting on reparent
-				physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
-				call_deferred("reparent", get_tree().get_root().get_node("World").player)
-				await get_tree().create_timer(0.02).timeout
-				physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_INHERIT
-				
-				
-				await get_tree().create_timer(2.0).timeout
-				swapping = false
-				health = max_health
+				handle_swap()
 				return
 			else:
-				call_deferred("free")
+				die()
 		
 		$Sprite.modulate = hurt_color
 		await get_tree().create_timer(0.1).timeout

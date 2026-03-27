@@ -18,16 +18,19 @@ radius = 48.0
 script = ExtResource("2_aawc0")
 max_speed = 50.0
 max_health = 12
+firerate = 1.0
+bullet_speed = 500.0
 target_color = Color(0.3016783, 0.99999994, 0.94571763, 1)
 bullet_color = Color(1, 0.94933337, 0.24000001, 1)
+hurt_color = Color(1, 1, 1, 1)
 
-[node name="Sprite" parent="." index="0" unique_id=20248440]
+[node name="Sprite" parent="." index="1" unique_id=20248440]
 texture = ExtResource("2_re8fb")
 
-[node name="Collider" parent="." index="1" unique_id=1927517454]
+[node name="Collider" parent="." index="2" unique_id=1927517454]
 shape = SubResource("CircleShape2D_1bki7")
 
-[node name="Seperator" parent="." index="2" unique_id=1349776888]
+[node name="Seperator" parent="." index="3" unique_id=1349776888]
 visible = true
 
 [node name="Collider" parent="Seperator" index="0" unique_id=74583118]
@@ -57,7 +60,7 @@ position = Vector2(48, -32)
 rotation = -1.5707964
 texture = ExtResource("3_1bki7")
 
-[node name="Hurtbox" parent="." index="4" unique_id=1744992855]
+[node name="Hurtbox" parent="." index="5" unique_id=1744992855]
 visible = true
 
 [node name="Collider" parent="Hurtbox" index="0" unique_id=1588830444]

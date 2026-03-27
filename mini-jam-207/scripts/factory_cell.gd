@@ -9,7 +9,7 @@ var spawn_entity
 var target_angle = 0
 
 func _physics_process(delta):
-	super._physics_process(delta)
+	aim(delta)
 	
 	$Sprite.rotation = lerp_angle($Sprite.rotation, target_angle, 5.0 * delta)
 
@@ -36,7 +36,10 @@ func shoot():
 		
 		await get_tree().create_timer(firerate).timeout
 		can_shoot = true
+#
+#func swap_sides(follow_node, col : Color, b_col: Color):
+	#super.swap_sides(follow_node, col, b_col)
+	#spawn_entity = follow_node
 
-func swap_sides(follow_node, col : Color, b_col: Color):
-	super.swap_sides(follow_node, col, b_col)
-	spawn_entity = follow_node
+func handle_swap():
+	die()
