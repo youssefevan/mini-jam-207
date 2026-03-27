@@ -1,10 +1,62 @@
 [gd_scene format=3 uid="uid://b7mecjixuorek"]
 
 [ext_resource type="Texture2D" uid="uid://d1bm62pqondht" path="res://sprites/bg.png" id="1_4wyf3"]
+[ext_resource type="Script" uid="uid://cof1c7u67pdxr" path="res://scripts/world.gd" id="1_71j4m"]
 [ext_resource type="PackedScene" uid="uid://e5povbhdp8ip" path="res://scenes/player.tscn" id="1_nnsk1"]
 [ext_resource type="PackedScene" uid="uid://dmn0llqtujcyh" path="res://scenes/cell.tscn" id="2_rwgxs"]
+[ext_resource type="Texture2D" uid="uid://dqaxsuq6egsvo" path="res://sprites/gun.png" id="4_k0juu"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_71j4m"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qfnet"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_i7141"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4mrxx"]
+normal = Vector2(1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_71j4m"]
+size = Vector2(96, 96)
 
 [node name="World" type="Node2D" unique_id=340078211]
+script = ExtResource("1_71j4m")
+
+[node name="WorldBounday" type="Node2D" parent="." unique_id=1412388115]
+metadata/_edit_lock_ = true
+
+[node name="North" type="StaticBody2D" parent="WorldBounday" unique_id=163244541]
+position = Vector2(0, -2048)
+collision_layer = 128
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBounday/North" unique_id=39200813]
+shape = SubResource("WorldBoundaryShape2D_71j4m")
+
+[node name="South" type="StaticBody2D" parent="WorldBounday" unique_id=1113602142]
+position = Vector2(0, 2048)
+collision_layer = 128
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBounday/South" unique_id=1101799141]
+shape = SubResource("WorldBoundaryShape2D_qfnet")
+
+[node name="East" type="StaticBody2D" parent="WorldBounday" unique_id=1273584037]
+position = Vector2(2048, 0)
+collision_layer = 128
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBounday/East" unique_id=1148203971]
+shape = SubResource("WorldBoundaryShape2D_i7141")
+
+[node name="West" type="StaticBody2D" parent="WorldBounday" unique_id=862361038]
+position = Vector2(-2048, 0)
+collision_layer = 128
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBounday/West" unique_id=1745349739]
+shape = SubResource("WorldBoundaryShape2D_4mrxx")
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=872151888]
 z_index = -100
@@ -14,12 +66,45 @@ repeat_times = 5
 [node name="BG" type="Sprite2D" parent="Parallax2D" unique_id=1664396203]
 texture = ExtResource("1_4wyf3")
 
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1515774168]
+position = Vector2(-592, 232)
+collision_layer = 2
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1329081442]
+scale = Vector2(2, 2)
+texture = ExtResource("4_k0juu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1704963928]
+shape = SubResource("RectangleShape2D_71j4m")
+
 [node name="Player" parent="." unique_id=475168457 instance=ExtResource("1_nnsk1")]
 
 [node name="Cell" parent="Player" unique_id=1714370941 instance=ExtResource("2_rwgxs")]
 
-[node name="Cell2" parent="Player" unique_id=421943579 instance=ExtResource("2_rwgxs")]
-position = Vector2(680, -112)
+[node name="Cell2" parent="Player" unique_id=116382447 instance=ExtResource("2_rwgxs")]
+position = Vector2(-160, -88)
 
-[node name="Cell3" parent="Player" unique_id=1581073511 instance=ExtResource("2_rwgxs")]
-position = Vector2(544, 128)
+[node name="Cell3" parent="Player" unique_id=1371388070 instance=ExtResource("2_rwgxs")]
+position = Vector2(120, 88)
+
+[node name="Cell4" parent="Player" unique_id=1024063589 instance=ExtResource("2_rwgxs")]
+position = Vector2(136, -104)
+
+[node name="Cell5" parent="Player" unique_id=919250278 instance=ExtResource("2_rwgxs")]
+position = Vector2(-128, 80)
+
+[node name="Cell4" parent="." unique_id=469030209 instance=ExtResource("2_rwgxs")]
+position = Vector2(-688, -400)
+
+[node name="Cell5" parent="." unique_id=2078709831 instance=ExtResource("2_rwgxs")]
+position = Vector2(-248, -448)
+
+[node name="Cell6" parent="." unique_id=976473585 instance=ExtResource("2_rwgxs")]
+position = Vector2(680, -400)
+
+[node name="Cell7" parent="." unique_id=2089391298 instance=ExtResource("2_rwgxs")]
+position = Vector2(824, 120)
+
+[node name="Cell8" parent="." unique_id=2017526737 instance=ExtResource("2_rwgxs")]
+position = Vector2(-632, 472)

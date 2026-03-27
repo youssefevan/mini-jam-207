@@ -17,9 +17,24 @@ config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/stretch/mode="canvas_items"
+
+[global_group]
+
+player=""
+enemy=""
+
+[layer_names]
+
+2d_physics/layer_1="cell"
+2d_physics/layer_2="environment"
+2d_physics/layer_3="hitbox"
+2d_physics/layer_4="hurtbox"
+2d_physics/layer_5="player"
+2d_physics/layer_6="enemy"
+2d_physics/layer_8="border"
 
 [physics]
 

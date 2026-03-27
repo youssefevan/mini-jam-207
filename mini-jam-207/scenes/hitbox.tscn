@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://d1378xybhmbjr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x6lip"]
+
+[node name="Hitbox" type="Area2D" unique_id=1218368196]
+collision_layer = 4
+collision_mask = 8
+
+[node name="Collider" type="CollisionShape2D" parent="." unique_id=310079426]
+shape = SubResource("CircleShape2D_x6lip")
+debug_color = Color(1, 0, 0.016666412, 0.41960785)
