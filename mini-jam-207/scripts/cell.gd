@@ -22,12 +22,17 @@ var can_shoot := true
 @export var hurt_color := Color.WHITE
 var bullet_group := "enemy"
 
+var target_dir = 0
+
 var neighbors = []
 var target_enemy
 
 var swapping := false
 
 var starting_pos : Vector2
+var enemies_in_range = []
+
+var aim_timer := randf() * 0.1
 
 func _ready():
 	starting_pos = global_position
@@ -58,14 +63,19 @@ func _physics_process(delta):
 	
 	velocity += get_seperation_force()
 	
-	aim(delta)
+	aim_timer -= delta
+	if aim_timer <= 0:
+		aim(delta)
+		aim_timer = 0.1
+	$Gun.rotation = lerp_angle($Gun.rotation, target_dir, aim_speed * delta)
+	
 	
 	move_and_slide()
 
 func get_seperation_force():
 	var force = Vector2.ZERO
 	
-	for i in neighbors:
+	for i in neighbors.slice(0, 5): # subsection of neighbors for performance
 		var offset = global_position - i.global_position
 		var distance = offset.length()
 		
@@ -76,32 +86,29 @@ func get_seperation_force():
 
 func aim(delta):
 	var closest
-	var valid_enemies = []
-	if !$AttackRange.get_overlapping_bodies().is_empty():
-		for i in $AttackRange.get_overlapping_bodies():
-			if !i.is_in_group(str(team_id)) and i is Cell:
-				valid_enemies.append(i)
-	
-	if !valid_enemies.is_empty():
-		closest = valid_enemies[0]
-		for i in valid_enemies:
-			if global_position.distance_squared_to(i.global_position) < global_position.distance_squared_to(closest.global_position):
+	if !enemies_in_range.is_empty():
+		for i in enemies_in_range:
+			if i.team_id == team_id:
+				enemies_in_range.erase(i)
+				continue
+			
+			if closest == null:
 				closest = i
+			elif global_position.distance_squared_to(i.global_position) < global_position.distance_squared_to(closest.global_position):
+				closest = i
+			target_enemy = closest
 		
-		target_enemy = closest
-	
-		var dist = global_position.distance_to(target_enemy.global_position)
-		var lead_position = target_enemy.global_position + target_enemy.velocity * (dist / bullet_speed)
-		var target_dir = global_position.direction_to(lead_position).angle()
-		$Gun.rotation = lerp_angle($Gun.rotation, target_dir, aim_speed * delta)
-		
-		shoot()
-	
+		if target_enemy:
+			target_dir = global_position.direction_to(target_enemy.global_position).angle()
+			shoot()
+		else:
+			target_enemy = null
+			if leader.player_controlled:
+				target_dir = global_position.direction_to(get_global_mouse_position()).angle()
 	else:
 		target_enemy = null
 		if leader.player_controlled:
-			var target_dir = global_position.direction_to(get_global_mouse_position()).angle()
-			$Gun.rotation = lerp_angle($Gun.rotation, target_dir, aim_speed * delta)
+			target_dir = global_position.direction_to(get_global_mouse_position()).angle()
 
 func shoot():
 	if can_shoot and !swapping:
@@ -121,6 +128,8 @@ func shoot():
 func swap_sides(new_leader):
 	swapping = true
 	
+	enemies_in_range = []
+	
 	set_leader(new_leader)
 	
 	# prevents visually teleporting on reparent
@@ -131,14 +140,15 @@ func swap_sides(new_leader):
 	
 	await get_tree().create_timer(2.0).timeout
 	swapping = false
-	health = int(max_health/2)
+	
+	health = max_health
 
 func set_leader(new_leader):
 	leader = new_leader
 	target_color = new_leader.cell_color
 	
 	remove_from_group(str(team_id))
-	add_to_group(str(team_id))
+	add_to_group(str(new_leader.team_id))
 	$Hurtbox.remove_from_group(str(team_id))
 	$Hurtbox.add_to_group(str(new_leader.team_id))
 	team_id = new_leader.team_id
@@ -167,3 +177,11 @@ func _on_hurtbox_area_entered(area):
 		$Sprite.modulate = hurt_color
 		await get_tree().create_timer(0.1).timeout
 		$Sprite.modulate = target_color
+
+
+func _on_attack_range_body_entered(body):
+	if body is Cell and !body.is_in_group(str(team_id)) and !swapping:
+		enemies_in_range.append(body)
+
+func _on_attack_range_body_exited(body):
+	enemies_in_range.erase(body)

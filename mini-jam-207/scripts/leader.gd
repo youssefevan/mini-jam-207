@@ -20,6 +20,7 @@ var cell = preload("res://scenes/cell.tscn")
 
 var wander_time := 0.0
 var target_wander_dir := Vector2.ZERO
+var game_over_time := 5.0
 
 func _ready():
 	if player_controlled:
@@ -32,12 +33,16 @@ func _ready():
 		setup_wander()
 
 func cell_setup():
+	game_over_time = 5.0
 	cell_count = 0
 	for i in get_children():
 		if i is Cell:
 			i.set_leader(self)
 			cell_count += 1
 	
+	handle_zoom()
+
+func handle_zoom():
 	if cell_count < 10:
 		target_zoom = 0.7
 	elif cell_count >= 10 and cell_count < 20:
@@ -75,17 +80,18 @@ func _physics_process(delta):
 func _on_child_entered_tree(node):
 	if node is Cell:
 		cell_setup()
-		game_over = false
+		
+		if game_over == true:
+			get_parent().toggle_dead_menu()
+			game_over = false
 
 func _on_child_exiting_tree(node):
-	var amount_left = 0
-	for i in get_children():
-		if i is Cell:
-			amount_left += 1
-	
-	# check for 1 left because this function gets called
-	# before the is actually deleted
-	if amount_left <= 1:
-		game_over = true
-	else:
-		cell_setup()
+	if node is Cell:
+		cell_count -= 1
+		
+		if cell_count == 0 and !game_over:
+			game_over = true
+			if player_controlled:
+				get_parent().toggle_dead_menu()
+		
+		handle_zoom()

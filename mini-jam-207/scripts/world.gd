@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var world_size := 2048
+@export var world_size := 2500
 @export var player : Leader
 
 @onready var cell = preload("res://scenes/cell.tscn")
@@ -17,6 +17,7 @@ func _ready():
 	player = p
 	
 	var c = cell.instantiate()
+	c.max_health = 10
 	p.add_child(c)
 	
 	add_child(p)
@@ -54,9 +55,7 @@ func spawn_enemy(amount):
 		var l = leader.instantiate()
 		l.global_position = get_good_spot()
 		l.team_id = amount
-		l.cell_color = Color.from_hsv(
-			randf(), randf_range(0.5, 0.9), randf_range(0.8, 1.0)
-			)
+		l.cell_color = Color.from_hsv(randf(), randf_range(0.5, 0.9), randf_range(0.8, 1.0))
 		
 		var e = enemy_type.instantiate()
 		l.add_child(e)
@@ -64,3 +63,9 @@ func spawn_enemy(amount):
 		add_child(l)
 		
 		spawn_enemy(amount - 1)
+
+func toggle_dead_menu():
+	$CanvasLayer/Menu.visible = !$CanvasLayer/Menu.visible
+
+func _on_retry_pressed():
+	get_tree().reload_current_scene()
