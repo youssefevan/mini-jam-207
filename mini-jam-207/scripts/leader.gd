@@ -1,4 +1,5 @@
 extends Node2D
+class_name Leader
 
 var move_dir := Vector2.ZERO
 var max_speed := 200.0
@@ -11,16 +12,24 @@ var target_zoom := 0.7
 
 var game_over := false
 
+var cell = preload("res://scenes/cell.tscn")
+
+@export var player_controlled := false
 @export var cell_color : Color
-@export var bullet_color: Color
+@export var team_id := 0
 
 func _ready():
+	if player_controlled:
+		team_id = 0
+	
+	add_to_group(str(team_id))
 	cell_setup()
 
 func cell_setup():
 	cell_count = 0
 	for i in get_children():
 		if i is Cell:
+			i.set_leader(self)
 			cell_count += 1
 	
 	if cell_count < 10:
@@ -33,20 +42,22 @@ func cell_setup():
 		target_zoom = 0.4
 
 func _process(delta):
-	$Camera.zoom = lerp($Camera.zoom, Vector2(target_zoom, target_zoom), 3.0 * delta)
+	if player_controlled:
+		$Camera.zoom = lerp($Camera.zoom, Vector2(target_zoom, target_zoom), 3.0 * delta)
 
 func _physics_process(delta):
 	if !game_over:
-		move_dir = lerp(move_dir, global_position.direction_to(get_global_mouse_position()), friction * delta)
-		global_position += move_dir * max_speed * delta
-		
-		global_position.x = clampf(global_position.x, -get_parent().world_size, get_parent().world_size)
-		global_position.y = clampf(global_position.y, -get_parent().world_size, get_parent().world_size)
+		if player_controlled:
+			move_dir = lerp(move_dir, global_position.direction_to(get_global_mouse_position()), friction * delta)
+			global_position += move_dir * max_speed * delta
+				
+			global_position.x = clampf(global_position.x, -get_parent().world_size, get_parent().world_size)
+			global_position.y = clampf(global_position.y, -get_parent().world_size, get_parent().world_size)
 
 func _on_child_entered_tree(node):
 	if node is Cell:
-		node.swap_sides(self, cell_color, bullet_color)
 		cell_setup()
+		game_over = false
 
 func _on_child_exiting_tree(node):
 	var amount_left = 0
