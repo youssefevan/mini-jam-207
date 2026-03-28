@@ -82,7 +82,8 @@ func _on_child_entered_tree(node):
 		cell_setup()
 		
 		if game_over == true:
-			get_parent().toggle_dead_menu()
+			if player_controlled:
+				get_parent().toggle_dead_menu()
 			game_over = false
 
 func _on_child_exiting_tree(node):
