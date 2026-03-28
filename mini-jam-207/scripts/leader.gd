@@ -18,12 +18,18 @@ var cell = preload("res://scenes/cell.tscn")
 @export var cell_color : Color
 @export var team_id := 0
 
+var wander_time := 0.0
+var target_wander_dir := Vector2.ZERO
+
 func _ready():
 	if player_controlled:
 		team_id = 0
 	
 	add_to_group(str(team_id))
 	cell_setup()
+	
+	if !player_controlled:
+		setup_wander()
 
 func cell_setup():
 	cell_count = 0
@@ -41,6 +47,10 @@ func cell_setup():
 	elif cell_count >= 30 and cell_count < 40:
 		target_zoom = 0.4
 
+func setup_wander():
+	wander_time = randf_range(0.5, 4.0)
+	target_wander_dir = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
+
 func _process(delta):
 	if player_controlled:
 		$Camera.zoom = lerp($Camera.zoom, Vector2(target_zoom, target_zoom), 3.0 * delta)
@@ -50,9 +60,17 @@ func _physics_process(delta):
 		if player_controlled:
 			move_dir = lerp(move_dir, global_position.direction_to(get_global_mouse_position()), friction * delta)
 			global_position += move_dir * max_speed * delta
-				
-			global_position.x = clampf(global_position.x, -get_parent().world_size, get_parent().world_size)
-			global_position.y = clampf(global_position.y, -get_parent().world_size, get_parent().world_size)
+		
+		else:
+			wander_time -= delta
+			if wander_time <= 0:
+				setup_wander()
+			
+			move_dir = lerp(move_dir, target_wander_dir, friction * delta)
+			global_position += move_dir * (max_speed/2) * delta
+	
+		global_position.x = clampf(global_position.x, -get_parent().world_size, get_parent().world_size)
+		global_position.y = clampf(global_position.y, -get_parent().world_size, get_parent().world_size)
 
 func _on_child_entered_tree(node):
 	if node is Cell:
