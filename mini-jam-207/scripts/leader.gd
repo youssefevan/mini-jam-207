@@ -12,7 +12,7 @@ var target_zoom := 0.7
 
 var game_over := false
 
-var cell = preload("res://scenes/cell.tscn")
+var cell = load("res://scenes/cell.tscn")
 
 @export var player_controlled := false
 @export var cell_color : Color

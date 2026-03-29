@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Cell
 
-@onready var bullet = preload("res://scenes/bullet.tscn")
+@onready var bullet = load("res://scenes/bullet.tscn")
 
 var leader : Leader
 var team_id := -1
@@ -120,13 +120,14 @@ func aim(delta):
 	var closest_dist = INF
 	
 	for i in neighbors:
-		if i is Cell:
-			if i != self and i.team_id != team_id:
-				var distance = global_position.distance_squared_to(i.global_position)
-				
-				if distance < closest_dist and distance < attack_range:
-					closest_dist = distance
-					closest = i
+		if is_instance_valid(i):
+			if i is Cell:
+				if i != self and i.team_id != team_id:
+					var distance = global_position.distance_squared_to(i.global_position)
+					
+					if distance < closest_dist and distance < attack_range:
+						closest_dist = distance
+						closest = i
 	
 	target_enemy = closest
 		
