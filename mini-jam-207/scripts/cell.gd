@@ -135,6 +135,9 @@ func swap_sides(new_leader):
 	
 	set_leader(new_leader)
 	
+	if new_leader.player_controlled:
+		$SFX.play()
+	
 	# prevents visually teleporting on reparent
 	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	call_deferred("reparent", new_leader)
@@ -173,6 +176,9 @@ func _on_hurtbox_area_entered(area):
 		health -= 1
 		
 		if health <= 0:
+			if leader.player_controlled:
+				$Hit.play()
+			
 			swap_sides(area.leader)
 			return
 		

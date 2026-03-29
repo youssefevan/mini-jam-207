@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bet1j57jbjne7"
+path="res://.godot/imported/8 - flagellum.ogg-4c0194f5311e7637312780b9522241ef.oggvorbisstr"
+
+[deps]
+
+source_file="res://sounds/8 - flagellum.ogg"
+dest_files=["res://.godot/imported/8 - flagellum.ogg-4c0194f5311e7637312780b9522241ef.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
