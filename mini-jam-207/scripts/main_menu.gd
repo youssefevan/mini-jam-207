@@ -4,6 +4,11 @@ var world_size = 512
 
 @onready var game = load("res://scenes/world.tscn")
 
+func _ready():
+	for i in get_tree().get_root().get_children():
+		if i is Bullet:
+			i.queue_free()
+
 func _on_num_cells_value_changed(value):
 	Global.game_size = int(value)
 	

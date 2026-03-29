@@ -1,6 +1,5 @@
 extends Node2D
 
-var world_size := 1872
 var player : Leader
 
 @onready var cell = preload("res://scenes/cell.tscn")
@@ -14,6 +13,10 @@ var can_spawn_wave := true
 var score_update_time = 1.0
 
 func _ready():
+	for i in get_tree().get_root().get_children():
+		if i is Bullet:
+			i.queue_free()
+	
 	var p = player_scene.instantiate()
 	p.global_position = Vector2.ZERO
 	p.cell_color = Color.from_hsv(randf(), randf_range(0.5, 0.9), randf_range(0.8, 1.0))
@@ -32,8 +35,8 @@ func get_good_spot():
 	var spawn_pos = Vector2.ZERO
 	
 	while not good_spot:
-		var posx = randf_range(-world_size+64, world_size-64)
-		var posy = randf_range(-world_size+64, world_size-64)
+		var posx = randf_range(-Global.world_size+64, Global.world_size-64)
+		var posy = randf_range(-Global.world_size+64, Global.world_size-64)
 		
 		var dist_to_player = Vector2(posx, posy).distance_to(player.global_position)
 		

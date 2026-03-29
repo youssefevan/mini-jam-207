@@ -74,8 +74,8 @@ func _physics_process(delta):
 			move_dir = lerp(move_dir, target_wander_dir, friction * delta)
 			global_position += move_dir * (max_speed/2) * delta
 	
-		global_position.x = clampf(global_position.x, -get_parent().world_size, get_parent().world_size)
-		global_position.y = clampf(global_position.y, -get_parent().world_size, get_parent().world_size)
+		global_position.x = clampf(global_position.x, -Global.world_size, Global.world_size)
+		global_position.y = clampf(global_position.y, -Global.world_size, Global.world_size)
 
 func _on_child_entered_tree(node):
 	if node is Cell:

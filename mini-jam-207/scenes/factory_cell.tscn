@@ -7,9 +7,6 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_jqv8y"]
 radius = 88.362885
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_kv64k"]
-radius = 112.28535
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_d5bo5"]
 radius = 108.0
 
@@ -17,20 +14,14 @@ radius = 108.0
 script = ExtResource("2_kv64k")
 max_speed = 50.0
 max_health = 25
-hurt_color = Color(1, 1, 1, 1)
+col_size = 600.0
 
-[node name="Sprite" parent="." index="1" unique_id=20248440]
+[node name="Sprite" parent="." index="2" unique_id=20248440]
 texture = ExtResource("3_kv64k")
 
-[node name="Collider" parent="." index="2" unique_id=1927517454]
+[node name="Collider" parent="." index="3" unique_id=1927517454]
 visible = false
 shape = SubResource("CircleShape2D_jqv8y")
-
-[node name="Seperator" parent="." index="3" unique_id=1349776888]
-visible = true
-
-[node name="Collider" parent="Seperator" index="0" unique_id=74583118]
-shape = SubResource("CircleShape2D_kv64k")
 
 [node name="Gun" parent="." index="4" unique_id=989617200]
 visible = false

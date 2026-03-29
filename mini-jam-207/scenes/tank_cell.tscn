@@ -5,9 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://b8qw33ked8f7m" path="res://sprites/tank.png" id="2_re8fb"]
 [ext_resource type="Texture2D" uid="uid://dqaxsuq6egsvo" path="res://sprites/gun.png" id="3_1bki7"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1bki7"]
-radius = 48.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_re8fb"]
 radius = 56.0
 
@@ -20,17 +17,12 @@ max_speed = 50.0
 max_health = 12
 bullet_speed = 800.0
 target_color = Color(0.3016783, 0.99999994, 0.94571763, 1)
+col_size = 250.0
 
-[node name="Sprite" parent="." index="1" unique_id=20248440]
+[node name="Sprite" parent="." index="2" unique_id=20248440]
 texture = ExtResource("2_re8fb")
 
-[node name="Collider" parent="." index="2" unique_id=1927517454]
-shape = SubResource("CircleShape2D_1bki7")
-
-[node name="Seperator" parent="." index="3" unique_id=1349776888]
-visible = true
-
-[node name="Collider" parent="Seperator" index="0" unique_id=74583118]
+[node name="Seperator#Collider" type="CollisionShape2D" parent="." index="3" unique_id=1927517454]
 shape = SubResource("CircleShape2D_re8fb")
 
 [node name="Muzzle" parent="Gun" parent_id_path=PackedInt32Array(989617200) index="0" unique_id=78768750]
