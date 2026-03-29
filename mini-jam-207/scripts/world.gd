@@ -1,7 +1,7 @@
 extends Node2D
 
-@export var world_size := 2500
-@export var player : Leader
+var world_size := 1872
+var player : Leader
 
 @onready var cell = preload("res://scenes/cell.tscn")
 @onready var tank = preload("res://scenes/tank_cell.tscn")
@@ -11,9 +11,12 @@ extends Node2D
 
 var can_spawn_wave := true
 
+var score_update_time = 1.0
+
 func _ready():
 	var p = player_scene.instantiate()
 	p.global_position = Vector2.ZERO
+	p.cell_color = Color.from_hsv(randf(), randf_range(0.5, 0.9), randf_range(0.8, 1.0))
 	player = p
 	
 	var c = cell.instantiate()
@@ -22,7 +25,7 @@ func _ready():
 	
 	add_child(p)
 	
-	spawn_enemy(50)
+	spawn_enemy(Global.game_size)
 
 func get_good_spot():
 	var good_spot = false
@@ -64,8 +67,26 @@ func spawn_enemy(amount):
 		
 		spawn_enemy(amount - 1)
 
+func _physics_process(delta):
+	score_update_time -= delta
+	
+	if score_update_time <= 0 and player.game_over == false:
+		var game_won = true
+		for i in get_children():
+			if i is Leader:
+				if not i.player_controlled:
+					if i.game_over == false:
+						game_won = false
+						continue
+		
+		if game_won == true:
+			$CanvasLayer/Menu/VBoxContainer/Label.text = "you won!"
+			$CanvasLayer/Menu.visible = true
+		
+		score_update_time = 1.0
+
 func toggle_dead_menu():
 	$CanvasLayer/Menu.visible = !$CanvasLayer/Menu.visible
 
 func _on_retry_pressed():
-	get_tree().reload_current_scene()
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

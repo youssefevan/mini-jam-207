@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="mini-jam-207"
-run/main_scene="uid://b7mecjixuorek"
+run/main_scene="uid://cu57k66h0bi38"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*uid://d36cm31eu112t"
 
 [display]
 

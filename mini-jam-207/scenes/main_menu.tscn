@@ -1,0 +1,167 @@
+[gd_scene format=3 uid="uid://cu57k66h0bi38"]
+
+[ext_resource type="Script" uid="uid://b58glm60f3bwt" path="res://scripts/main_menu.gd" id="1_bqqt6"]
+[ext_resource type="Theme" uid="uid://bbnrqxkavhtdc" path="res://new_theme.tres" id="1_ekxnf"]
+[ext_resource type="Texture2D" uid="uid://d1bm62pqondht" path="res://sprites/bg.png" id="2_bqqt6"]
+[ext_resource type="PackedScene" uid="uid://bu6kyohx8ik1d" path="res://scenes/leader.tscn" id="4_8ln24"]
+[ext_resource type="PackedScene" uid="uid://dmn0llqtujcyh" path="res://scenes/cell.tscn" id="5_rtw2f"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wu84c"]
+font_size = 56
+outline_size = 20
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ln24"]
+font_size = 36
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8ln24"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rtw2f"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_oa1go"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_tbmy8"]
+normal = Vector2(1, 0)
+
+[node name="MainMenu" type="Node2D" unique_id=1548775599]
+script = ExtResource("1_bqqt6")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=388901468]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1365903586]
+
+[node name="Menu" type="Control" parent="CanvasLayer" unique_id=1992016404]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = -156.14815
+offset_right = 136.0
+offset_bottom = 156.14815
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Menu" unique_id=1190179164]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/Menu/VBoxContainer" unique_id=1767895327]
+layout_mode = 2
+text = "cell game"
+label_settings = SubResource("LabelSettings_wu84c")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Menu/VBoxContainer" unique_id=1523594263]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer/Menu/VBoxContainer/VBoxContainer" unique_id=1853532123]
+layout_mode = 2
+text = "game size: 40"
+label_settings = SubResource("LabelSettings_8ln24")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NumCells" type="HSlider" parent="CanvasLayer/Menu/VBoxContainer/VBoxContainer" unique_id=1962428778]
+layout_mode = 2
+min_value = 20.0
+max_value = 60.0
+step = 10.0
+value = 40.0
+tick_count = 5
+ticks_position = 3
+
+[node name="Start" type="Button" parent="CanvasLayer/Menu/VBoxContainer" unique_id=816584725]
+layout_mode = 2
+theme = ExtResource("1_ekxnf")
+text = "play"
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=2106782495]
+z_index = -100
+repeat_size = Vector2(1024, 1024)
+repeat_times = 5
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="BG" type="Sprite2D" parent="Parallax2D" unique_id=1535523703]
+texture = ExtResource("2_bqqt6")
+
+[node name="Leader" parent="." unique_id=184064489 instance=ExtResource("4_8ln24")]
+cell_color = Color(1, 0.44, 0.44, 1)
+team_id = 2
+
+[node name="Cell" parent="Leader" unique_id=1714370941 instance=ExtResource("5_rtw2f")]
+position = Vector2(280, 168)
+
+[node name="Leader2" parent="." unique_id=1701722835 instance=ExtResource("4_8ln24")]
+cell_color = Color(0.35000002, 0.66416657, 1, 1)
+team_id = 3
+
+[node name="Cell" parent="Leader2" unique_id=1255154848 instance=ExtResource("5_rtw2f")]
+position = Vector2(-352, -168)
+
+[node name="Leader3" parent="." unique_id=1400079881 instance=ExtResource("4_8ln24")]
+cell_color = Color(0.46262425, 0.8774339, 0.56093884, 1)
+team_id = 4
+
+[node name="Cell" parent="Leader3" unique_id=1774103201 instance=ExtResource("5_rtw2f")]
+position = Vector2(-336, 192)
+
+[node name="Leader4" parent="." unique_id=401080402 instance=ExtResource("4_8ln24")]
+cell_color = Color(0.96, 0.9104, 0.36479998, 1)
+team_id = 5
+
+[node name="Cell" parent="Leader4" unique_id=616277469 instance=ExtResource("5_rtw2f")]
+position = Vector2(272, -208)
+
+[node name="WorldBounday" type="Node2D" parent="." unique_id=1519120211]
+position = Vector2(-512, -360)
+metadata/_edit_group_ = true
+
+[node name="North" type="StaticBody2D" parent="WorldBounday" unique_id=1392719680]
+collision_layer = 128
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBounday/North" unique_id=1926929291]
+shape = SubResource("WorldBoundaryShape2D_8ln24")
+
+[node name="South" type="StaticBody2D" parent="WorldBounday" unique_id=989759468]
+position = Vector2(0, 720)
+collision_layer = 128
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBounday/South" unique_id=394904295]
+shape = SubResource("WorldBoundaryShape2D_rtw2f")
+
+[node name="East" type="StaticBody2D" parent="WorldBounday" unique_id=370054803]
+position = Vector2(1024, 0)
+collision_layer = 128
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBounday/East" unique_id=244136720]
+shape = SubResource("WorldBoundaryShape2D_oa1go")
+
+[node name="West" type="StaticBody2D" parent="WorldBounday" unique_id=771506666]
+position = Vector2(0, 720)
+collision_layer = 128
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBounday/West" unique_id=59688443]
+shape = SubResource("WorldBoundaryShape2D_tbmy8")
+
+[connection signal="value_changed" from="CanvasLayer/Menu/VBoxContainer/VBoxContainer/NumCells" to="." method="_on_num_cells_value_changed"]
+[connection signal="pressed" from="CanvasLayer/Menu/VBoxContainer/Start" to="." method="_on_start_pressed"]

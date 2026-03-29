@@ -63,10 +63,13 @@ func _physics_process(delta):
 	
 	velocity += get_seperation_force()
 	
-	aim_timer -= delta
-	if aim_timer <= 0:
+	if leader.player_controlled and leader.cell_count < 12:
 		aim(delta)
-		aim_timer = 0.1
+	else:
+		aim_timer -= delta
+		if aim_timer <= 0:
+			aim(delta)
+			aim_timer = 0.1
 	$Gun.rotation = lerp_angle($Gun.rotation, target_dir, aim_speed * delta)
 	
 	
@@ -140,6 +143,9 @@ func swap_sides(new_leader):
 	
 	await get_tree().create_timer(2.0).timeout
 	swapping = false
+	
+	$AttackRange/Collider.disabled = true
+	$AttackRange/Collider.disabled = false
 	
 	health = max_health
 
