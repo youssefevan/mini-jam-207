@@ -6,6 +6,8 @@ var game_size := 30
 var grid = {}
 var cell_size := 256
 
+var volume = -15.0
+
 func get_key(pos):
 	return Vector2i(pos / cell_size)
 

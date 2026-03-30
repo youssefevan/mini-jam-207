@@ -13,13 +13,13 @@ var can_spawn_wave := true
 var score_update_time = 1.0
 
 func _ready():
+	$AudioStreamPlayer.volume_db = Global.volume
 	for i in get_tree().get_root().get_children():
 		if i is Bullet:
 			i.queue_free()
 	
 	var p = player_scene.instantiate()
 	p.global_position = Vector2.ZERO
-	p.cell_color = Color.from_hsv(randf(), randf_range(0.5, 0.9), randf_range(0.8, 1.0))
 	player = p
 	
 	var c = cell.instantiate()
@@ -61,7 +61,11 @@ func spawn_enemy(amount):
 		var l = leader.instantiate()
 		l.global_position = get_good_spot()
 		l.team_id = amount
-		l.cell_color = Color.from_hsv(randf(), randf_range(0.5, 0.9), randf_range(0.8, 1.0))
+		
+		var value = float(amount)/Global.game_size
+		value = 0.1 + value * 0.8
+		
+		l.cell_color = Color.from_hsv(value, randf_range(0.5, 0.9), randf_range(0.8, 1.0))
 		
 		var e = enemy_type.instantiate()
 		l.add_child(e)
