@@ -13,7 +13,8 @@ radius = 108.0
 [node name="FactoryCell" unique_id=1714370941 instance=ExtResource("1_gtvj0")]
 script = ExtResource("2_kv64k")
 max_speed = 50.0
-max_health = 40
+max_health = 20
+firerate = 2.5
 col_size = 120.0
 
 [node name="Sprite" parent="." index="2" unique_id=20248440]

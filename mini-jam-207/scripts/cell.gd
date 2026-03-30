@@ -15,14 +15,12 @@ var health
 @export var max_health := 5
 
 @export var firerate := 1.0
-@export var bullet_speed := 250.0
 var can_shoot := true
 
 var attack_range := 260000
 
 @export var target_color : Color
 @export var hurt_color := Color.WHITE
-var bullet_group := "enemy"
 
 var target_dir = 0
 
@@ -122,7 +120,7 @@ func aim(delta):
 	for i in neighbors:
 		if is_instance_valid(i):
 			if i is Cell:
-				if i != self and i.team_id != team_id:
+				if i != self and i.team_id != team_id and !i.swapping:
 					var distance = global_position.distance_squared_to(i.global_position)
 					
 					if distance < closest_dist and distance < attack_range:
@@ -144,7 +142,6 @@ func shoot():
 		var b = bullet.instantiate()
 		b.global_position = $Gun/Muzzle.global_position
 		b.rotation = $Gun.rotation
-		b.speed = bullet_speed
 		b.set_leader(leader)
 		
 		get_parent().get_parent().add_child(b)

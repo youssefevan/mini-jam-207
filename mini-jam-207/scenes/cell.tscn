@@ -20,9 +20,7 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="Cell" type="CharacterBody2D" unique_id=1714370941]
 collision_mask = 128
-safe_margin = 0.2
 script = ExtResource("1_0s7o3")
-bullet_speed = 500.0
 target_color = Color(1, 1, 1, 1)
 
 [node name="SFX" type="AudioStreamPlayer2D" parent="." unique_id=1889944049]
@@ -32,7 +30,6 @@ stream = ExtResource("2_ecwuj")
 stream = ExtResource("3_k6tqi")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=20248440]
-scale = Vector2(2, 2)
 texture = ExtResource("1_upbjj")
 
 [node name="Collider" type="CollisionShape2D" parent="." unique_id=1927517454]
@@ -47,7 +44,6 @@ position = Vector2(48, 0)
 z_index = -1
 position = Vector2(36, 0)
 rotation = -1.5707964
-scale = Vector2(2, 2)
 texture = ExtResource("3_nm02e")
 
 [node name="Hurtbox" parent="." unique_id=1744992855 instance=ExtResource("4_ds1sf")]

@@ -12,7 +12,6 @@ radius = 48.0
 script = ExtResource("2_aawc0")
 max_speed = 50.0
 max_health = 12
-bullet_speed = 800.0
 target_color = Color(0.3016783, 0.99999994, 0.94571763, 1)
 col_size = 72.0
 
@@ -32,7 +31,6 @@ position = Vector2(68, 32)
 z_index = -1
 position = Vector2(48, 32)
 rotation = -1.5707964
-scale = Vector2(2, 2)
 texture = ExtResource("3_1bki7")
 
 [node name="Muzzle2" type="Node2D" parent="Gun" parent_id_path=PackedInt32Array(989617200) index="4" unique_id=125368863]
@@ -42,7 +40,6 @@ position = Vector2(68, -32)
 z_index = -1
 position = Vector2(48, -32)
 rotation = -1.5707964
-scale = Vector2(2, 2)
 texture = ExtResource("3_1bki7")
 
 [node name="Hurtbox" parent="." index="5" unique_id=1744992855]

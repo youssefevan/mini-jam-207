@@ -43,13 +43,13 @@ func cell_setup():
 	handle_zoom()
 
 func handle_zoom():
-	if cell_count < 10:
+	if cell_count < 6:
 		target_zoom = 0.7
-	elif cell_count >= 10 and cell_count < 20:
+	elif cell_count >= 6 and cell_count < 12:
 		target_zoom = 0.6
-	elif cell_count >= 20 and cell_count < 30:
+	elif cell_count >= 12 and cell_count < 24:
 		target_zoom = 0.5
-	elif cell_count >= 30 and cell_count < 40:
+	elif cell_count >= 24:
 		target_zoom = 0.4
 
 func setup_wander():

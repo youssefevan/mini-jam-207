@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://d1bm62pqondht" path="res://sprites/bg.png" id="1_4wyf3"]
 [ext_resource type="Script" uid="uid://cof1c7u67pdxr" path="res://scripts/world.gd" id="1_71j4m"]
 [ext_resource type="Texture2D" uid="uid://2rfemio4cwxk" path="res://sprites/player.png" id="1_nnsk1"]
+[ext_resource type="AudioStream" uid="uid://bet1j57jbjne7" path="res://sounds/8 - flagellum.ogg" id="2_i7141"]
 [ext_resource type="Theme" uid="uid://bbnrqxkavhtdc" path="res://new_theme.tres" id="2_qfnet"]
 [ext_resource type="PackedScene" uid="uid://dufj2boybrucc" path="res://scenes/wall.tscn" id="3_4mrxx"]
 [ext_resource type="Script" uid="uid://c2ii5lmp6ouaq" path="res://scripts/minimap.gd" id="3_w7kh3"]
@@ -32,6 +33,12 @@ sources/0 = SubResource("TileSetScenesCollectionSource_7r4gi")
 
 [node name="World" type="Node2D" unique_id=340078211]
 script = ExtResource("1_71j4m")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=234365379]
+stream = ExtResource("2_i7141")
+volume_db = -15.0
+autoplay = true
+parameters/looping = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1480555995]
 
