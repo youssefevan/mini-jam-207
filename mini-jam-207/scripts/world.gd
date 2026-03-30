@@ -87,6 +87,7 @@ func _physics_process(delta):
 			$CanvasLayer/Menu.visible = true
 		
 		score_update_time = 1.0
+	
 
 func toggle_dead_menu():
 	$CanvasLayer/Menu.visible = !$CanvasLayer/Menu.visible

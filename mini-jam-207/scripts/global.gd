@@ -1,6 +1,6 @@
 extends Node
 
-var world_size := 1872
+var world_size := 1280
 var game_size := 30
 
 var grid = {}

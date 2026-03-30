@@ -27,7 +27,12 @@ func shoot():
 		get_parent().add_child(b)
 		b.global_position = $Gun/Muzzle.global_position
 		
+		health -= 1
+		
 		target_angle += deg_to_rad(45.0)
 		
 		await get_tree().create_timer(firerate).timeout
 		can_shoot = true
+
+func swap_sides(new_leader):
+	call_deferred('free')

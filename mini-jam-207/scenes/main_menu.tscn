@@ -71,7 +71,7 @@ layout_mode = 2
 
 [node name="Label2" type="Label" parent="CanvasLayer/Menu/VBoxContainer/VBoxContainer" unique_id=1853532123]
 layout_mode = 2
-text = "game size: 40"
+text = "game size: 30"
 label_settings = SubResource("LabelSettings_8ln24")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -79,9 +79,9 @@ vertical_alignment = 1
 [node name="NumCells" type="HSlider" parent="CanvasLayer/Menu/VBoxContainer/VBoxContainer" unique_id=1962428778]
 layout_mode = 2
 min_value = 20.0
-max_value = 60.0
-step = 10.0
-value = 40.0
+max_value = 40.0
+step = 5.0
+value = 30.0
 tick_count = 5
 ticks_position = 3
 
