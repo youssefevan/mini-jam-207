@@ -8,6 +8,9 @@ var player : Leader
 @onready var leader = preload("res://scenes/leader.tscn")
 @onready var player_scene = preload("res://scenes/player.tscn")
 
+@export var override_game_size := false
+@export var number_of_cells := 50
+
 var can_spawn_wave := true
 
 var score_update_time = 1.0
@@ -28,7 +31,10 @@ func _ready():
 	
 	add_child(p)
 	
-	spawn_enemy(Global.game_size)
+	if override_game_size:
+		spawn_enemy(number_of_cells)
+	else:
+		spawn_enemy(Global.game_size)
 
 func get_good_spot():
 	var good_spot = false
