@@ -17,6 +17,7 @@ var cell = load("res://scenes/cell.tscn")
 @export var player_controlled := false
 @export var cell_color : Color
 @export var team_id := 0
+@export var debug := false
 
 var wander_time := 0.0
 var target_wander_dir := Vector2.ZERO
@@ -57,6 +58,9 @@ func setup_wander():
 	target_wander_dir = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 
 func _process(delta):
+	if debug:
+		queue_redraw()
+	
 	if player_controlled:
 		$Camera.zoom = lerp($Camera.zoom, Vector2(target_zoom, target_zoom), 3.0 * delta)
 
@@ -71,11 +75,37 @@ func _physics_process(delta):
 			if wander_time <= 0:
 				setup_wander()
 			
-			move_dir = lerp(move_dir, target_wander_dir, friction * delta)
+			# steer away from world bounds
+			var steer_dir := Vector2.ZERO
+			var margin := 32.0
+			
+			if global_position.x > Global.world_size - margin:
+				steer_dir.x -= 1
+			elif global_position.x < -Global.world_size + margin:
+				steer_dir.x += 1
+			
+			if global_position.y > Global.world_size - margin:
+				steer_dir.y -= 1
+			elif global_position.y < -Global.world_size + margin:
+				steer_dir.y += 1
+			
+			steer_dir = steer_dir.normalized()
+			
+			if steer_dir != Vector2.ZERO:
+				move_dir = lerp(move_dir, steer_dir, friction * delta)
+			else:
+				move_dir = lerp(move_dir, target_wander_dir, friction * delta)
+			
 			global_position += move_dir * (max_speed/2) * delta
 	
 		global_position.x = clampf(global_position.x, -Global.world_size, Global.world_size)
 		global_position.y = clampf(global_position.y, -Global.world_size, Global.world_size)
+
+func _draw():
+	if debug:
+		var end_point = move_dir.normalized() * 100.0
+		draw_line(Vector2.ZERO, end_point, cell_color, 4.0)
+		draw_circle(Vector2.ZERO, 20.0, cell_color)
 
 func _on_child_entered_tree(node):
 	if node is Cell:

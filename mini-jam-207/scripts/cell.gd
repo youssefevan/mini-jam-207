@@ -168,9 +168,6 @@ func swap_sides(new_leader):
 	await get_tree().create_timer(2.0).timeout
 	swapping = false
 	
-	#$AttackRange/Collider.disabled = true
-	#$AttackRange/Collider.disabled = false
-	
 	health = max_health
 
 func set_leader(new_leader):
@@ -185,12 +182,7 @@ func set_leader(new_leader):
 
 func die():
 	call_deferred("free")
-#
-#func _on_seperator_body_entered(body):
-	#neighbors.append(body)
-#
-#func _on_seperator_body_exited(body):
-	#neighbors.erase(body)
+
 
 func _on_hurtbox_area_entered(area):
 	if !area.is_in_group(str(team_id)) and !swapping:
@@ -210,11 +202,3 @@ func _on_hurtbox_area_entered(area):
 		$Sprite.modulate = hurt_color
 		await get_tree().create_timer(0.1).timeout
 		$Sprite.modulate = target_color
-
-
-#func _on_attack_range_body_entered(body):
-	#if body is Cell and !body.is_in_group(str(team_id)) and !swapping:
-		#enemies_in_range.append(body)
-#
-#func _on_attack_range_body_exited(body):
-	#enemies_in_range.erase(body)
