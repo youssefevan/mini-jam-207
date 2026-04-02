@@ -23,6 +23,8 @@ var wander_time := 0.0
 var target_wander_dir := Vector2.ZERO
 var game_over_time := 5.0
 
+var steer_dir := Vector2.ZERO
+
 func _ready():
 	if player_controlled:
 		team_id = 0
@@ -56,6 +58,7 @@ func handle_zoom():
 func setup_wander():
 	wander_time = randf_range(0.5, 4.0)
 	target_wander_dir = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
+	steer_dir = Vector2.ZERO
 
 func _process(delta):
 	if debug:
@@ -76,18 +79,21 @@ func _physics_process(delta):
 				setup_wander()
 			
 			# steer away from world bounds
-			var steer_dir := Vector2.ZERO
-			var margin := 32.0
+			var margin := 64.0
 			
 			if global_position.x > Global.world_size - margin:
 				steer_dir.x -= 1
 			elif global_position.x < -Global.world_size + margin:
 				steer_dir.x += 1
+			else:
+				steer_dir.x = lerpf(steer_dir.x, 0.0, friction * delta)
 			
 			if global_position.y > Global.world_size - margin:
 				steer_dir.y -= 1
 			elif global_position.y < -Global.world_size + margin:
 				steer_dir.y += 1
+			else:
+				steer_dir.y = lerpf(steer_dir.y, 0.0, friction * delta)
 			
 			steer_dir = steer_dir.normalized()
 			
