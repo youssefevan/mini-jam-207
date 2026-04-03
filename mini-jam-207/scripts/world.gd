@@ -46,7 +46,7 @@ func get_good_spot():
 		
 		var dist_to_player = Vector2(posx, posy).distance_to(player.global_position)
 		
-		if dist_to_player > 500:
+		if dist_to_player > 400:
 			spawn_pos = Vector2(posx, posy)
 			good_spot = true
 	
